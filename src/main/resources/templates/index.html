@@ -1,0 +1,174 @@
+<!doctype html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link href="../static/ouput.css" data-th-href="@{/output.css}" rel="stylesheet">
+    <title>SServer</title>
+    <meta name="theme-color" content="#F6F3EF">
+
+    <script src="https://cdn.tiny.cloud/1/zwi3ftrh3vofntiwda9mhiqoqgdq11go3di2rqjy0xoa6wyy/tinymce/5/tinymce.min.js" referrerpolicy="origin"></script>
+</head>
+
+<body class="bg-[#F6F3EF] font-mono">
+    <main class="container px-12 mx-auto font-sans prose md:px-0 prose-yellow" style="margin-bottom: 1rem;">
+
+        <div class="px-4 py-3 my-8 bg-white rounded-xl">
+            <h1 class="mb-0 text-4xl font-bold">SServer<span class="text-sm">Hajebrahimi Alireza</span></h1>
+            <span class="my-auto font-mono">This is a program where you can write content with requests. <br><span class="text-xs" th:text="${requestAgent}"></span><br><br></span>
+            <div class="font-mono text-xs " style="width: 100%; display:grid; grid-template-columns: repeat(2, minmax(0, 1fr));">
+                <span class="font-bold">Browser: <span style="font-weight: normal;" th:text="${browser}"></span></span>
+                <span class="font-bold">OS: <span style="font-weight: normal;" th:text="${os}"></span></span>
+                <span class="font-bold">Version: <span style="font-weight: normal;" th:text="${version}"></span></span>
+                <span class="font-bold">Platform: <span style="font-weight: normal;" th:text="${platform}"></span></span>
+                <span class="font-bold">Device: <span style="font-weight: normal;" th:text="${device}"></span></span>
+                <span class="font-bold text-red-800" style="color: rgb(153 27 27); text-decoration-line: underline;">Is Mobile: <span style="font-weight: normal;" th:text="${isMobile}"></span></span>
+            </div>
+        </div>
+        
+        <div class="flex flex-row justify-between">
+            <span class="m-0 text-sm font-bold uppercase">Contents</span>
+            <a id="newContent" style="cursor: pointer;">Add</a>
+        </div>
+
+        <form action="" method="post" class="px-4 py-3 bg-white rounded-xl prose-h2:mt-0" style="display: none;">
+            <span class="flex flex-row justify-between">
+                <h2>New Post</h2>
+                <span id="currentTime" th:text="${#dates.format(new java.util.Date(newTime), 'yyyy-MM-dd hh:mm aaa')}">time</span>
+            </span>
+            <label class="flex flex-col">
+                <span>Title</span>
+                <input name="title" type="text" class="h-10 border-none rounded-lg bg-stone-100 focus:ring-yellow-600 focus:ring-2">
+            </label>
+            <label class="flex flex-col my-4">
+                <span>Content</span>
+                <textarea name="content" id="tinyContent" cols="30" rows="12" class="border-none rounded-lg bg-stone-100 focus:ring-yellow-600 focus:ring-2"></textarea>
+            </label>
+            <div class="flex flex-row justify-end space-x-2">
+                <a id="cancelPost" class="px-4 py-1 text-red-600 underline rounded-lg cursor-pointer hover:text-red-800">Cancel</a>
+                <button name="s" type="submit" class="px-4 py-1 text-white bg-yellow-600 rounded-lg hover:bg-yellow-700">Publish</button>
+            </div>
+        </form>
+
+        <!-- *content* -->
+        <!-- sample -->
+        <div class="mt-3 bg-white rounded-xl" th:each="blog: ${blogs}">
+            <div class="flex flex-row justify-between w-full px-4 py-3 border-b-2">
+                <h2 class="m-0 text-2xl font-bold break-words" th:text="${blog.title}">This is a program made in Java</h2>
+                <a data-UUID="../static/ouput.css" data-th-data-UUID="${blog.id}" id="deleteBtn" style="cursor: pointer;" class="my-auto text-red-600"><svg xmlns="http://www.w3.org/2000/svg" height="21" viewBox="0 0 21 21" width="21"><g fill="none" fill-rule="evenodd" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" transform="translate(3 2)"><path d="m2.5 2.5h10v12c0 1.1045695-.8954305 2-2 2h-6c-1.1045695 0-2-.8954305-2-2zm5-2c1.0543618 0 1.91816512.81587779 1.99451426 1.85073766l.00548574.14926234h-4c0-1.1045695.8954305-2 2-2z"/><path d="m.5 2.5h14"/><path d="m5.5 5.5v8"/><path d="m9.5 5.5v8"/></g></svg></a>
+            </div>
+            <div class="px-4 py-3 break-words prose-p:my-0" th:utext="${blog.content}">
+                <p>Dear friends,
+                <br>As you can see in here this is a test program made in Java.</p>
+            </div>
+        </div>
+
+        
+    </main>
+    <script>
+        // Attach a listener to the 'click' event of the 'a' element with id of 'deleteBtn'.
+        // When the 'click' event is triggered, send a DELETE request to the server with the value of data-UUID.
+        // The server will delete the file with the specified UUID.
+ 
+        document.getElementById('deleteBtn').addEventListener('click', function(e) {
+            e.preventDefault();
+            var uuid = document.getElementById('deleteBtn').getAttribute('data-UUID');
+            var xhr = new XMLHttpRequest();
+            xhr.open('DELETE', '/blog/' + uuid);
+            xhr.onload = function() {
+                if (xhr.status === 200) {
+                    // The blog was deleted successfully.
+                    // Reload the page to get the updated list of blogs.
+                     location.reload();
+                } else {
+                    // An error occurred.
+                    // Display the error message from the server in alert.
+                    alert(xhr.responseText);
+                }
+            };
+            xhr.send();
+        });
+
+        document.getElementById('newContent').addEventListener('click', function(e) {
+            e.preventDefault();
+            // Toggle form display, if it is hidden, show it, if it is visible, hide it.
+            document.getElementsByTagName('form')[0].style.display = document.getElementsByTagName('form')[0].style.display === 'none' ? 'block' : 'none';
+
+            // Replace the text of the 'a' element with 'Close'.
+            // If the text is 'Close', replace it with 'Add'.
+            document.getElementById('newContent').innerText = document.getElementById('newContent').innerText === 'Add' ? 'Close' : 'Add';
+
+            // Get current time and replace the text of the 'span' element with the current time and change the format to 'yyyy-MM-dd hh:mm aaa'.
+            var currentTime = new Date();
+            document.getElementById('currentTime').innerText = currentTime.toLocaleString('en-UK', {
+                year: 'numeric',
+                month: '2-digit',
+                day: '2-digit',
+                hour: '2-digit',
+                minute: '2-digit',
+                hour12: true,
+                timeZone: 'UTC'
+            });
+
+            
+
+        });
+
+
+        // Add event listener to the 'submit' event of the 'form' element.
+        // When the 'submit' event is triggered, send a POST request to the server with the value of the 'title' and 'content' input elements as json data.
+        // The server will create a new blog with the specified title and content.
+        // Reload the page to get the updated list of blogs.
+        document.getElementsByTagName('form')[0].addEventListener('submit', function(e) {
+            e.preventDefault();
+
+            // Check if title is not empty.
+            if (document.getElementsByName('title')[0].value === '') {
+                alert('Title cannot be empty.');
+                return;
+            }
+
+            var xhr = new XMLHttpRequest();
+            xhr.open('POST', '/blog');
+            xhr.setRequestHeader('Content-Type', 'application/json');
+            xhr.onload = function() {
+                if (xhr.status === 200) {
+                    // The blog was created successfully.
+                    // Reload the page to get the updated list of blogs.
+                    location.reload();
+                } else {
+                    // An error occurred.
+                    // Display the error message from the server in alert.
+                    // The alert text is in the response body and JSON format.
+                    // Get the 'error' and 'message' from the JSON object.
+                    var error = JSON.parse(xhr.responseText).error;
+                    var message = JSON.parse(xhr.responseText).message;
+                    alert(error + ': ' + message);
+                }
+            };
+            xhr.send(JSON.stringify({
+                title: document.getElementsByName('title')[0].value,
+                content: tinymce.get("tinyContent").getContent()
+            }));
+        });
+
+        // Add event listener to the 'click' event of the 'a' element with id of 'cancelPost'.
+        // When the 'click' event is triggered, hide the form and reset the form.
+        document.getElementById('cancelPost').addEventListener('click', function(e) {
+            e.preventDefault();
+            document.getElementsByTagName('form')[0].style.display = 'none';
+            document.getElementsByTagName('form')[0].reset();
+            // change the text of the 'a' element with id of 'newContent' to 'Add'
+            document.getElementById('newContent').innerText = 'Add';
+        });
+        tinymce.init({
+            selector: 'textarea',
+            plugins: 'advlist autolink insertdatetime code lists link image charmap print preview hr anchor pagebreak table',
+            toolbar_mode: 'floating',
+            height: 300,
+          });
+    </script>
+</body>
+
+</html>

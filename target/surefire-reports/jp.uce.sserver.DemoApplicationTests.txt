@@ -1,0 +1,4 @@
+-------------------------------------------------------------------------------
+Test set: jp.uce.sserver.DemoApplicationTests
+-------------------------------------------------------------------------------
+Tests run: 1, Failures: 0, Errors: 0, Skipped: 0, Time elapsed: 9.484 s - in jp.uce.sserver.DemoApplicationTests
