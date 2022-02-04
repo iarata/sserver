@@ -6,7 +6,7 @@ The SServer java program is a TCP based server with blog storing/displaying func
 
 ![Java](https://img.shields.io/badge/java-%3E%3D17.0.1-blue)
 ![GitHub release (latest by date including pre-releases)](https://img.shields.io/github/v/release/iarata/sserver?include_prereleases)
-![GitHub top language](https://img.shields.io/github/languages/top/iarata/sserver) ![GitHub issues](https://img.shields.io/github/issues/iarata/sserver) [![License](https://img.shields.io/badge/licence-GPL%20v3-green)](LICENSE)
+![GitHub top language](https://img.shields.io/github/languages/top/iarata/sserver) ![GitHub issues](https://img.shields.io/github/issues/iarata/sserver) [![License](https://img.shields.io/badge/licence-MIT-green)](LICENSE)
 
 ## Getting Started
 
