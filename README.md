@@ -1,8 +1,52 @@
+![SServer](screenshots/header.png)
 
+# SServer Application
+
+The SServer java program is a TCP based server with blog storing/displaying functionalities using NoSQL database model. The program also includes REST API endpoint.
+
+![Java](https://img.shields.io/badge/java-%3E%3D17.0.1-blue)
+![GitHub release (latest by date including pre-releases)](https://img.shields.io/github/v/release/iarata/sserver?include_prereleases)
+![GitHub top language](https://img.shields.io/github/languages/top/iarata/sserver) ![GitHub issues](https://img.shields.io/github/issues/iarata/sserver) [![License](https://img.shields.io/badge/licence-GPL%20v3-green)](LICENSE)
+
+## Getting Started
+
+These instructions will get you a copy of the project up and running on your local machine.
+
+- Make sure that you have the java 17.0.1 or higher.
+- From the [Releases](https://github.com/iarata/sserver/releases) section download the latest version .jar file.
+- Open a terminal in the same folder as .jar file.
+- In terminal execute the following command: `java -jar sserver-0.0.1.jar` This will start the program on port 8080.
+- If you want to change the port add the following argument: `--server.port=8083`
+
+| Home Page | New Post | REST API | Errors |
+| ------------- | ------------- | ------------- | ------------- |
+| ![Home Page](screenshots/01_home.png)  | ![New Post](screenshots/02_new.png)  | ![REST API](screenshots/03_rest.png)  | ![Errors](screenshots/04_errors.png)  |
+
+### Features
+
+- Add blog content
+- REST API endpoint with support of `GET`,`POST` and `DELETE` methods
+- WYSIWYG Editor
+- HTML built with TailwindCSS
+
+
+## Built with
+
+- Java (17.0.1)
+- TailwindCSS
+
+Frameworks:
+- Spring Framework
+
+## Authors
+
+- **Hajebrahimi Alireza** - [iarata](https://github.com/iarata)
+
+Send me an email at mrex778@yahoo.ca if you would like to contribute :)
 
 ## License
 
-This project is licensed under the BSD 3-Clause "New" or "Revised" License - see the LICENSE file for details
+This project is licensed under the GPL v3 License - see the [LICENSE](LICENSE) file for details
 
 
 ### Reference Documentation
