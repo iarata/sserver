@@ -43,7 +43,6 @@ Frameworks:
 
 - **Hajebrahimi Alireza** - [iarata](https://github.com/iarata)
 
-Send me an email at mrex778@yahoo.ca if you would like to contribute :)
 
 ## License
 
